@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+env/
+venv/
+
+# Redis
+dump.rdb
+
+# System files
+.DS_Store
+Thumbs.db
