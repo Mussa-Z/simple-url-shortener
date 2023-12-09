@@ -58,9 +58,18 @@ def redirect_url(request, short_url_key):
 
 @api_view(['GET'])
 def get_user_history(request, user_id):
+<<<<<<< HEAD
     try:
         user_records = Identifiers.objects.filter(user_identifier=user_id)
         serializer = IdentifiersSerializer(user_records, many=True)
         return JsonResponse(serializer.data, safe=False)
     except Identifiers.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+=======
+    return Response({})
+
+@api_view(['GET'])
+def return_something(request):
+    return Response({"name: ":"John"})
+    
+>>>>>>> e439b17dd722b5be94ae75c475a1842797011d0e

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Simple URL Shortener",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "action": {
+    "default_popup": "frontend/main_page.html",
+    "default_icon": "frontend/images/scissors_icon.png"
+  },
+  "icons": {
+    "16": "frontend/images/scissors_icon.png",
+    "32": "frontend/images/scissors_icon.png",
+    "48": "frontend/images/url_icon.png",
+    "128": "frontend/images/url_icon.png"
+  },
+  "permissions": ["activeTab", "scripting", "http://127.0.0.1:8080/"]
+}
