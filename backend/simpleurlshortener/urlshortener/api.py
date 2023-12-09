@@ -65,7 +65,12 @@ def get_user_history(request, user_id):
     except Identifiers.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+# Temporary function for testing purposes
 @api_view(['GET'])
 def return_something(request):
-    return Response({"name: ":"John"})
+    return Response({"name":"John"},headers={'Access-Control-Allow-Origin':"*",
+                                            'Access-Control-Allow-Methods':"POST, GET, PUT",
+                                            'Access-Control-Allow-Headers':"Content-Type" 
+                                            })
+
     

@@ -13,5 +13,9 @@
     "48": "frontend/images/url_icon.png",
     "128": "frontend/images/url_icon.png"
   },
-  "permissions": ["activeTab", "scripting", "http://127.0.0.1:8080/"]
+  "permissions": [],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://127.0.0.1:8080/*"
+  ]
 }
