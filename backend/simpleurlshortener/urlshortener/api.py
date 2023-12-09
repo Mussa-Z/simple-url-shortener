@@ -31,3 +31,8 @@ def redirect_url(request, short_url):
 @api_view(['GET'])
 def get_user_history(request, user_id):
     return Response({})
+
+@api_view(['GET'])
+def return_something(request):
+    return Response({"name: ":"John"})
+    

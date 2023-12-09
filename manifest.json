@@ -12,5 +12,6 @@
     "32": "frontend/images/scissors_icon.png",
     "48": "frontend/images/url_icon.png",
     "128": "frontend/images/url_icon.png"
-  }
+  },
+  "permissions": ["activeTab", "scripting", "http://127.0.0.1:8080/"]
 }
