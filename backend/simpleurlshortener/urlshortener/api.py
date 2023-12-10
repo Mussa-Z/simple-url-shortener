@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpRequest
 from django.utils.html import escape
 import random
 import string
@@ -12,17 +12,19 @@ from .serializers import *
 
 DOMAIN = "http://localhost:8000/"
 
+# view for testing purposes - mimicking client requests
+'''
 @api_view(['GET'])
 def send_request(request):
     url = "http://localhost:8000/aMv26DO/"
-    data = {'url': 'https://cohost.org/tomforsyth/post/943070-a-matter-of-precisio', 'user': 'admin'}
+    data = {'url': 'https://www.wolfram.com/language/elementary-introduction/2nd-ed/what-is-the-wolfram-language.html', 'user': 'anon'}
     #headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     r = requests.post(url, data=data)
     return Response(r.content)
+'''
 
 @api_view(['POST'])
 def shorten_url(request):
-    print(request.data['url'])
     long_url = escape(request.data['url'])
     user_id = request.data['user']
     try:

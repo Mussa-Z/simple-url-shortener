@@ -11,6 +11,7 @@ class Identifiers(models.Model):
         indexes = [ 
             models.Index(fields=['user_identifier'])
         ]
+        ordering = ['-date_added']
 
     def __str__(self):
         return self.long_url
