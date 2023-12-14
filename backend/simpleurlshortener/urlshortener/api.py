@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponseRedirect, JsonResponse, HttpRequest
 from django.utils.html import escape
+from django.conf import settings
 import random
 import string
 import requests
@@ -10,7 +11,9 @@ import requests
 from .models import *
 from .serializers import *
 
-DOMAIN = "http://localhost:8000/"
+DOMAIN = "https://musa7.pythonanywhere.com/"
+if settings.DEBUG == True:
+    DOMAIN = "http://localhost:8000/"
 
 # view for testing purposes - mimicking client requests
 '''
@@ -68,11 +71,14 @@ def get_user_history(request, user_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 # Temporary function for testing purposes
+'''
 @api_view(['GET'])
 def return_something(request):
     return Response({"name":"John"},headers={'Access-Control-Allow-Origin':"*",
                                             'Access-Control-Allow-Methods':"POST, GET, PUT",
                                             'Access-Control-Allow-Headers':"Content-Type" 
                                             })
+'''
+
 
     
