@@ -1,10 +1,58 @@
 body{
-    background-color: rgba(255, 255, 255, 0.773);  
+    background-color: rgba(255, 255, 255, 0.424);
     margin:5px;
     margin: 5px;
     padding: 2px;
     border-radius: 10px; 
     min-width: 300px;   
-    min-height: 500px;
+    min-height: 500px;   
+}
+.shortener_area{
+    background-color: rgba(186, 202, 216, 0.634);  
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px; 
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);    
+}
+
+h1{   
+    font-size: 20px;
+    color: #123456;
+}
+
+.history_area{
+    /* background-color: rgba(240, 225, 159, 0.787);  */
+    background-color: rgba(186, 202, 216, 0.634);  
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px; 
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
     
+}
+h1.history{
+    /* color: #563812; */
+    color: #123456;
+}
+
+input.shorten_button{
+    background-color: rgba(119, 113, 233, 0.787);  
+    color:white;
+    margin:5px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px; 
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
+}
+input.delete_button{
+    /* background-color: rgba(233, 125, 113, 0.787);  */
+    background-color: rgba(119, 113, 233, 0.787); 
+    color:white;
+    margin:5px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px; 
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
+}
+input#url{
+    width:450px;
 }

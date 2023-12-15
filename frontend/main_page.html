@@ -6,32 +6,25 @@
     <meta name="description" content="Simple URL Shortener extension popup">
     <meta name="keywords" content="chrome extension, url shortener">
     <meta name="author" content="AZ, AS">
-    <link rel="stylesheet" type="text/css" href="stylesheets/main_page.css">     
+    <link rel="stylesheet" type="text/css" href="stylesheets/main_page.css">        
   </head>
   <body>
-    <h1>Simple URL Shortener</h1>
-    <original_url_area>
-      <form action="">
-        <label for="original_url">Original URL</label>
-        <input type="text" id="original_url" name="original_url"><br><br>
-        <input type="Shorten" value="Shorten">
-      </form> 
-    </original_url_area>
-    <short_url_area>
-      <p>Short URL Here</p> 
-    </short_url_area>
-    <test_area id="test">
-      <p></p>
-    </test_area>
-    <test_area id="user_email">
-      <h4>User Email: </h4><br>
-    </test_area>
-    <test_area id="user_id">
-      <h4>User ID: </h4><br>
-    </test_area>
-    <test_area id="test2">
-      <h4>......</h4><br>
-    </test_area>
-    <script src="console.js"></script>        
+    <div class="shortener_area">
+      <h1>Simple URL Shortener</h1>
+      <original_url_area id="original_url_area">
+        <form action='https://musa7.pythonanywhere.com/aMv26DO/' method='post' class='form' enctype='multipart/form-data'>
+          <input type='hidden' id='user' name='user' value='anonymous'>
+          <input type='text' id='url' placeholder='Enter original URL' name='url'><br>
+          <input class='shorten_button' type='submit' value='Shorten'>
+        </form>
+      </original_url_area>
+      <short_url_area id="short_url_area">
+        <p>Short URL Here:</p> 
+      </short_url_area>
+    </div>
+    <div class="history_area" id="history_area"> 
+      <h1 class="history">History</h1>  
+    </div>
+    <script src="console.js"></script>         
   </body>
 </html>
