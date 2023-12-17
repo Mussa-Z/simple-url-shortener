@@ -15,14 +15,27 @@ DOMAIN = "https://musa7.pythonanywhere.com/"
 if settings.DEBUG == True:
     DOMAIN = "http://localhost:8000/"
 
-# view for testing purposes - mimicking client requests
+# views for testing purposes - mimicking client requests
 '''
 @api_view(['GET'])
 def send_request(request):
     url = "http://localhost:8000/aMv26DO/"
-    data = {'url': 'https://www.wolfram.com/language/elementary-introduction/2nd-ed/what-is-the-wolfram-language.html', 'user': 'anon'}
+    data = {'url': 'https://www.deleteurl.com/4', 'user': 'dtester2'}
     #headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     r = requests.post(url, data=data)
+    return Response(r.content)
+
+@api_view(['GET'])
+def send_url_delete_request(request):
+    url = "http://localhost:8000/EwD6y30/"
+    data = {'short_url': 'http://localhost:8000/J07MYsX', 'user': 'dtester'}
+    r = requests.put(url, data=data)
+    return Response(r.content)
+
+@api_view(['GET'])
+def send_user_delete_request(request):
+    url = "http://localhost:8000/delete/dtester2"
+    r = requests.delete(url)
     return Response(r.content)
 '''
 
@@ -64,10 +77,44 @@ def redirect_url(request, short_url_key):
 @api_view(['GET'])
 def get_user_history(request, user_id):
     try:
+        user_record_exists = Identifiers.objects.filter(user_identifier=user_id)[0]
         user_records = Identifiers.objects.filter(user_identifier=user_id)
         serializer = IdentifiersSerializer(user_records, many=True)
         return JsonResponse(serializer.data, safe=False)
-    except Identifiers.DoesNotExist:
+    except IndexError:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['PUT'])
+def update_user_history(request):
+    short_url_key = request.data['short_url'].split('/')[3]
+    user_id = request.data['user']
+    try:
+        # check if at least one instance of the record exists
+        url_record_exists = Identifiers.objects.filter(user_identifier=user_id, short_url_key=short_url_key)[0]
+        # using filter in case multiple matches are returned
+        url_record = Identifiers.objects.filter(user_identifier=user_id, short_url_key=short_url_key)
+        url_record.delete() 
+        try:
+            user_record_exists = Identifiers.objects.filter(user_identifier=user_id)[0]
+            user_records = Identifiers.objects.filter(user_identifier=user_id)
+            serializer = IdentifiersSerializer(user_records, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        except IndexError:
+            # return an empty array if the user does not have any remaining history
+            return JsonResponse([], safe=False)
+    except IndexError:
+        # record that we were asked to delete was not found
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    
+@api_view(['DELETE'])
+def delete_user_history(request, user_id):
+    try:
+        user_record_exists = Identifiers.objects.filter(user_identifier=user_id)[0]
+        user_records = Identifiers.objects.filter(user_identifier=user_id)
+        user_records.delete()
+        return JsonResponse([], safe=False)
+    except IndexError:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 # Temporary function for testing purposes
