@@ -1,6 +1,7 @@
    
 //(Investigate why userIdentity is not working as a universal variable)
 var userIdentity;
+DOMAIN = "https://musa7.pythonanywhere.com/";
 chrome.identity.getProfileUserInfo((userInfo) => {
     userIdentity = userInfo.email;
     if (userInfo.email == ""){
@@ -41,7 +42,7 @@ function reloadHistory(userIdentity){
                 html_history +="<dl>";
                 for (var i = 0; i < history_data.length; i++) {
                     html_history +="<li>";
-                    html_history +="<dt>"+history_data[i].short_url_key+"</dt>";
+                    html_history +="<dt><a target='_blank' href='"+DOMAIN+history_data[i].short_url_key+"'>"+DOMAIN+history_data[i].short_url_key+"</a></dt>";
                     html_history +="<dd>"+history_data[i].long_url+"</dd>";
                     html_history += "<input class='delete_button' type='submit' value='Delete'>";
                     html_history +="</li>";                
@@ -68,7 +69,8 @@ function shorten(event){
     req_shorten.onreadystatechange = function(){     
         if (req_shorten.readyState === 4) {                  
             reloadHistory(userIdentity);
-            document.getElementById("short_url_area").innerHTML = "<p>Your Short URL:"+req_shorten.responseText+"</p>";
+            console.log("link:"+req_shorten.responseText);
+            document.getElementById("short_url_area").innerHTML = "<p>Your Short URL:</p><a target='_blank' href='"+req_shorten.responseText+"' >"+req_shorten.responseText+" </a>";
         };          
     };
     req_shorten.open("POST", "https://musa7.pythonanywhere.com/aMv26DO/"); 
@@ -78,3 +80,5 @@ function shorten(event){
 
 // setInterval(function() {
 // }, 2000);   
+
+// onclick="chrome.tabs.create({url:this.href})"
