@@ -12,11 +12,10 @@
     <div class="shortener_area">
       <h1>Simple URL Shortener</h1>
       <original_url_area id="original_url_area">
-        <form action='https://musa7.pythonanywhere.com/aMv26DO/' method='post' class='form' enctype='multipart/form-data'>
-          <input type='hidden' id='user' name='user' value='anonymous'>
+        <form id="shorten_form">
           <input type='text' id='url' placeholder='Enter original URL' name='url'><br>
-          <input class='shorten_button' type='submit' value='Shorten'>
-        </form>
+          <input class='shorten_button' id='shorten_button' type='submit' value='Shorten'>
+        </form>                
       </original_url_area>
       <short_url_area id="short_url_area">
         <p>Short URL Here:</p> 
@@ -29,6 +28,6 @@
       <div id="inner_history_area"> </div>
     </div>
     
-    <script src="console.js"></script>         
+    <script src="popup.js"></script>         
   </body>
 </html>

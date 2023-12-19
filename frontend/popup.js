@@ -1,47 +1,34 @@
    
-//(Strangest thing, this variable is not acting like a universal variable)
+//(Investigate why userIdentity is not working as a universal variable)
 var userIdentity;
 chrome.identity.getProfileUserInfo((userInfo) => {
-
-    //POST Area
     userIdentity = userInfo.email;
-    //Send anonymous if user not logged in:
     if (userInfo.email == ""){
         userIdentity = "anonymous";
     };
-    user_html = ""
-    user_html += "<form action='https://musa7.pythonanywhere.com/aMv26DO/' method='post' class='form' enctype='multipart/form-data'>";
-    user_html += "<input type='hidden' id='user' name='user' value='"+ userIdentity+"'>";
-    user_html += "<input type='text' id='url' placeholder='Enter original URL' name='url'><br>";
-    user_html += "<input class='shorten_button' type='submit' value='Shorten'>";
-    user_html += "</form>";
-    document.getElementById("original_url_area").innerHTML = user_html;
-    //End of POST Area
 
+    //Shorten functionality
+    document.getElementById("shorten_form").addEventListener("submit", shorten);
 
     //History
-    ReloadHistory(userIdentity);
+    reloadHistory(userIdentity);
 
-
-
-    //Clear history functionality:
-    document.getElementById("clearHistoryButton").addEventListener("click", function(){ClearHistoryFunc(userIdentity)});
-    
-
+    //Clear history functionality
+    document.getElementById("clearHistoryButton").addEventListener("click", function(){clearHistoryFunc(userIdentity)});
+   
 });
-function ClearHistoryFunc(userIdentity) {      
+function clearHistoryFunc(userIdentity) {      
     const req_del_history = new XMLHttpRequest();        
     req_del_history.onreadystatechange = function(){     
         if (req_del_history.readyState === 4) {                  
-            ReloadHistory(userIdentity);
+            reloadHistory(userIdentity);
         };          
     };
     req_del_history.open("DELETE", "https://musa7.pythonanywhere.com/delete/"+userIdentity); 
     req_del_history.send();
 };
 
-function ReloadHistory(userIdentity){
-    console.log("reload history is working");
+function reloadHistory(userIdentity){
     const req_history = new XMLHttpRequest();        
     req_history.onreadystatechange = function(){     
         if (req_history.readyState === 4) { 
@@ -63,13 +50,30 @@ function ReloadHistory(userIdentity){
                 html_history +="</ol>" ;
                 html_history +="</div>" ;                
             };
-            document.getElementById("inner_history_area").innerHTML = html_history ;
-             
+            document.getElementById("inner_history_area").innerHTML = html_history;             
         } 
     };
     req_history.open("GET", "https://musa7.pythonanywhere.com/user/"+userIdentity); 
     req_history.send();
+}
 
+function shorten(event){
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const dataObject = Object.fromEntries(data.entries());
+    userIdentity = userIdentity;
+    url = dataObject.url;
+
+    const req_shorten = new XMLHttpRequest();        
+    req_shorten.onreadystatechange = function(){     
+        if (req_shorten.readyState === 4) {                  
+            reloadHistory(userIdentity);
+            document.getElementById("short_url_area").innerHTML = "<p>Your Short URL:"+req_shorten.responseText+"</p>";
+        };          
+    };
+    req_shorten.open("POST", "https://musa7.pythonanywhere.com/aMv26DO/"); 
+    req_shorten.setRequestHeader("Content-Type", "application/json");
+    req_shorten.send(JSON.stringify({ "url": url, "user": userIdentity}));
 }
 
 // setInterval(function() {
