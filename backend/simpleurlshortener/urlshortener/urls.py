@@ -9,6 +9,5 @@ urlpatterns = [
     path('<str:short_url_key>', api.redirect_url, name='redirect_URL_api'),
     path('user/<str:user_id>', api.get_user_history, name='user_history_api'),
     path('EwD6y30/', api.update_user_history, name='update_user_history_api'),
-    path('delete/<str:user_id>', api.delete_user_history, name='delete_user_history_api'),
-    #path('api/return_something/', api.return_something, name='return_something_api'),
+    path('delete/<str:user_id>', api.delete_user_history, name='delete_user_history_api')
 ]
