@@ -42,16 +42,22 @@ function reloadHistory(userIdentity){
                 html_history +="<dl>";
                 for (var i = 0; i < history_data.length; i++) {
                     html_history +="<li>";
-                    html_history +="<dt><a target='_blank' href='"+DOMAIN+history_data[i].short_url_key+"'>"+DOMAIN+history_data[i].short_url_key+"</a></dt>";
-                    html_history +="<dd>"+history_data[i].long_url+"</dd>";
+                    html_history += "<form id='delete_url_form' >"
+                    html_history += "<dt><a target='_blank' href='"+DOMAIN+history_data[i].short_url_key+"'>"+DOMAIN+history_data[i].short_url_key+"</a></dt>";
+                    html_history += "<dd>"+history_data[i].long_url+"</dd>";
+                    html_history += "<input type='hidden' id='url' name='url' value='"+DOMAIN+history_data[i].short_url_key+"'>";
                     html_history += "<input class='delete_button' type='submit' value='Delete'>";
-                    html_history +="</li>";                
+                    html_history += "</form>"
+                    html_history += "</li>";                
                 };
                 html_history +="</dl>" ;
                 html_history +="</ol>" ;
                 html_history +="</div>" ;                
             };
-            document.getElementById("inner_history_area").innerHTML = html_history;             
+            document.getElementById("inner_history_area").innerHTML = html_history;
+            //Add listeners to individual delete buttons here.
+            document.getElementById('delete_url_form').addEventListener("submit", deleteUrl); 
+
         } 
     };
     req_history.open("GET", "https://musa7.pythonanywhere.com/user/"+userIdentity); 
@@ -76,6 +82,24 @@ function shorten(event){
     req_shorten.open("POST", "https://musa7.pythonanywhere.com/aMv26DO/"); 
     req_shorten.setRequestHeader("Content-Type", "application/json");
     req_shorten.send(JSON.stringify({ "url": url, "user": userIdentity}));
+}
+
+function deleteUrl(event){
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const dataObject = Object.fromEntries(data.entries());
+    userIdentity = userIdentity;
+    url = dataObject.url;
+    const req_update = new XMLHttpRequest();        
+    req_update.onreadystatechange = function(){     
+        if (req_update.readyState === 4) {                  
+            reloadHistory(userIdentity);
+        };          
+    };
+    req_update.open("PUT", "https://musa7.pythonanywhere.com/EwD6y30/"); 
+    req_update.setRequestHeader("Content-Type", "application/json");
+    req_update.send(JSON.stringify({ "short_url": url, "user": userIdentity}));
+
 }
 
 // setInterval(function() {
