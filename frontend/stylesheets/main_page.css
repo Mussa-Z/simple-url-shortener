@@ -14,7 +14,70 @@ body{
     margin: 10px;
     padding: 10px;
     border-radius: 10px; 
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753); 
+}
+#shorten_form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+}
+#url{    
+    max-width: 350px;
+    max-height: 20px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Same as #shorten_button */
+input.shorten_button{    
+    background-color: rgba(119, 113, 233, 0.787);  
+    color:white;   
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px; 
     box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);    
+}
+
+short_url_area{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+p#result_url{
+    font: bolder;
+    font-weight: bolder;
+    font-size: 15px;
+    
+}
+a#result_url{
+    font: bolder;
+    font-weight: bolder;
+    font-size: 15px;
+    text-decoration: none;   
+}
+p#user_name{
+    color:grey;
+    font-size: small;
+    padding-top: 0px;
+    margin-top:0px;
+}
+h1.history{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+#history_card{
+    padding:10px;
+    margin: 5px;
+    background-color:rgba(195, 211, 223, 0.634);
+    border-radius: 10px;
+    max-width: 400px;
+}
+#longURL{
+
+    inline-size: 370px;
+    overflow-wrap: break-word;
 }
 
 h1{   
@@ -28,9 +91,7 @@ h1{
     margin: 10px;
     padding: 10px;
     border-radius: 10px; 
-    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
-    
-    
+    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);   
 }
 .outer_history_area{
     /* background-color: rgba(240, 225, 159, 0.787);  */
@@ -45,24 +106,16 @@ h1.history{
     color: #123456;
 }
 
-input.shorten_button{
-    background-color: rgba(119, 113, 233, 0.787);  
-    color:white;
-    margin:5px;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px; 
-    box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
-}
+
 input.delete_button{
     /* background-color: rgba(233, 125, 113, 0.787);  */
     background-color: rgba(119, 113, 233, 0.787); 
     color:white;
-    margin:5px;
     margin: 5px;
-    padding: 5px;
+    padding: 3px;
     border-radius: 5px; 
     box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
+    font-size: 13px;
 }
 input#url{
     width:450px;
@@ -74,12 +127,31 @@ input#url{
     overflow: scroll;
     padding: 10px;
 }
-#clearHistoryButton{
+/* #clearHistoryButton{
     background-color: #cb4154; 
     color:white;
-    margin:5px;
     margin: 5px;
-    padding: 5px;
+    padding: 3px;
     border-radius: 5px; 
     box-shadow: 4px 4px 2px rgba(165, 165, 165, 0.753);
+    font-size: 13px;
+} */
+
+#clearHistContainer{
+    display: flex;
+    max-width: 400px;
+    flex-direction: row;
+    align-items: end;
+    justify-content: end;
+    place-items: end;
+
+}
+#clearHistoryButton{
+    color: black;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    font-weight: bolder;
+}
+#clearHistoryButton:hover{
+    color: rgba(119, 113, 233, 0.787);
 }

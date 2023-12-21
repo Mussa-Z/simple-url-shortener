@@ -35,23 +35,28 @@ function reloadHistory(userIdentity){
         if (req_history.readyState === 4) { 
             html_history = "";
             if (req_history.status != 404){
-                history_data = JSON.parse(req_history.response);                
-                html_history += "<h3>User: "+history_data[0].user_identifier+"</h3>";
+                history_data = JSON.parse(req_history.response); 
+                document.getElementById("user_name").innerHTML = history_data[0].user_identifier;               
+                // html_history += "<h3 id='user_name'>"+history_data[0].user_identifier+"</h3>";
                 html_history +="<div id='history_scroll'>" ;
-                html_history +="<ol>" ;
-                html_history +="<dl>";
+                // html_history +="<ol>" ;
+                // html_history +="<dl>";
                 for (var i = 0; i < history_data.length; i++) {
-                    html_history +="<li>";
+                    html_history += "<div id='history_card'>"
+                    // html_history +="<li>";
                     html_history += "<form id='delete_url_form' >"
-                    html_history += "<dt><a target='_blank' href='"+DOMAIN+history_data[i].short_url_key+"'>"+DOMAIN+history_data[i].short_url_key+"</a></dt>";
-                    html_history += "<dd>"+history_data[i].long_url+"</dd>";
+                   
+                    html_history += "<a id='result_url' target='_blank' href='"+DOMAIN+history_data[i].short_url_key+"'>"+DOMAIN+history_data[i].short_url_key+"</a>";
+                    html_history += "<p id='longURL'>"+history_data[i].long_url+"</p>";
                     html_history += "<input type='hidden' id='url' name='url' value='"+DOMAIN+history_data[i].short_url_key+"'>";
                     html_history += "<input class='delete_button' type='submit' value='Delete'>";
+                    
                     html_history += "</form>"
-                    html_history += "</li>";                
+                    // html_history += "</li>";
+                    html_history += "</div>"                
                 };
-                html_history +="</dl>" ;
-                html_history +="</ol>" ;
+                // html_history +="</dl>" ;
+                // html_history +="</ol>" ;
                 html_history +="</div>" ;                
             };
             document.getElementById("inner_history_area").innerHTML = html_history;
@@ -76,7 +81,7 @@ function shorten(event){
         if (req_shorten.readyState === 4) {                  
             reloadHistory(userIdentity);
             console.log("link:"+req_shorten.responseText);
-            document.getElementById("short_url_area").innerHTML = "<p>Your Short URL:</p><a target='_blank' href='"+req_shorten.responseText+"' >"+req_shorten.responseText+" </a>";
+            document.getElementById("short_url_area").innerHTML = "<p id='result_url'>URL:</p><a id='result_url' target='_blank' href='"+req_shorten.responseText+"' >"+req_shorten.responseText+" </a>";
         };          
     };
     req_shorten.open("POST", "https://musa7.pythonanywhere.com/aMv26DO/"); 
